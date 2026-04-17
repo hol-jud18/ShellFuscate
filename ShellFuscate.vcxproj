@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Encryption.c" />
     <ClCompile Include="Obfuscation.c" />
+    <ClCompile Include="ShellFuscate.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helpers.h" />

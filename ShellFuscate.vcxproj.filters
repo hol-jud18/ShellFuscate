@@ -18,6 +18,12 @@
     <ClCompile Include="Obfuscation.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Encryption.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellFuscate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helpers.h">
