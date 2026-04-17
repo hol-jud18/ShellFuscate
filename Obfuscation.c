@@ -47,6 +47,7 @@ char* GenerateIPv6(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b
 	return result;
 }
 
+// Generate an IPv4 address string from 4 bytes
 char* GenerateIPv4(int b0, int b1, int b2, int b3) {
 	char* result = (char*)malloc(64);
 	if (!result) return NULL;
