@@ -56,3 +56,35 @@ char* GenerateIPv4(int b0, int b1, int b2, int b3) {
 	sprintf(result, "%d.%d.%d.%d", b0, b1, b2, b3);
 	return result;
 }
+
+// returns UUID obfuscated shell code
+BOOL ObfuscateUUID(unsigned char* pShellcode, SIZE_T ShellcodeSize) {
+	if (pShellcode == NULL || ShellcodeSize == NULL || ShellcodeSize % 16 != 0) {
+		return FALSE;
+	}
+
+	SIZE_T count = ShellcodeSize / 16;
+	printf("char* UuidArray[%zu] = {\n\t", count);
+
+	for (SIZE_T i = 0; i < ShellcodeSize; i += 16) {
+		char* uuid = GenerateUUID(
+			pShellcode[i], pShellcode[i + 1], pShellcode[i + 2], pShellcode[i + 3], 
+			pShellcode[i + 4], pShellcode[i + 5], pShellcode[i + 6], pShellcode[i + 7], 
+			pShellcode[i + 8], pShellcode[i + 9], pShellcode[i + 10], pShellcode[i + 11], 
+			pShellcode[i + 12], pShellcode[i + 13], pShellcode[i + 14], pShellcode[i + 15]
+			);
+
+		BOOL isLast = (i == ShellcodeSize - 16);
+		printf(isLast ? "\"%s\"" : "\"%s\", ", uuid);
+		free(uuid);
+		uuid = NULL;
+
+		if (!isLast && ((i / 16 + 1) % 3 == 0)) {
+			printf("\n\t");
+		}
+	}
+
+	printf("\n};\n\n");
+	printf("#define NumberOfElements %zu\n\n", count);
+	return TRUE;
+}
