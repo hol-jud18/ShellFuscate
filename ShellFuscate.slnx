@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="ShellFuscate.vcxproj" />
+  <Project Path="ShellFuscate.vcxproj" Id="00213c2d-5f45-493b-973b-c55fe02b5b68" />
 </Solution>

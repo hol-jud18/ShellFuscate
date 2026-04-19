@@ -74,13 +74,83 @@ BOOL ObfuscateUUID(unsigned char* pShellcode, SIZE_T ShellcodeSize) {
 			pShellcode[i + 12], pShellcode[i + 13], pShellcode[i + 14], pShellcode[i + 15]
 			);
 
-		BOOL isLast = (i == ShellcodeSize - 16);
-		printf(isLast ? "\"%s\"" : "\"%s\", ", uuid);
-		free(uuid);
-		uuid = NULL;
+		if (i == ShellcodeSize - 16) {
+			printf("\t\"%s\"", uuid); // Last element without comma
+		} else {
+			printf("\t\"%s\",\n", uuid);
+		}
+	}
 
-		if (!isLast && ((i / 16 + 1) % 3 == 0)) {
-			printf("\n\t");
+	printf("\n};\n\n");
+	printf("#define NumberOfElements %zu\n\n", count);
+	return TRUE;
+}
+
+BOOL ObfuscateMAC(unsigned char* pShellcode, SIZE_T ShellcodeSize) {
+	if (pShellcode == NULL || ShellcodeSize == NULL || ShellcodeSize % 5 != 0) {
+		return FALSE;
+	}
+	SIZE_T count = ShellcodeSize / 5;
+	printf("char* MacArray[%zu] = {\n\t", count);
+
+	for (SIZE_T i = 0; i < ShellcodeSize; i += 5) {
+		char* mac = GenerateMAC(
+			pShellcode[i], pShellcode[i + 1], pShellcode[i + 2], pShellcode[i + 3], pShellcode[i + 4]
+		);
+		if (i == ShellcodeSize - 5) {
+			printf("\t\"%s\"", mac); // Last element without comma
+		} else {
+			printf("\t\"%s\",\n", mac);
+		}
+	}
+	printf("\n};\n\n");
+	printf("#define NumberOfElements %zu\n\n", count);
+	return TRUE;
+}
+
+BOOL ObfuscateIPv6(unsigned char* pShellcode, SIZE_T ShellcodeSize) {
+	if (pShellcode == NULL || ShellcodeSize == NULL || ShellcodeSize % 16 != 0) {
+		return FALSE;
+	}
+
+	SIZE_T count = ShellcodeSize / 16;
+	printf("char* IPv6Array[%zu] = {\n\t", count);
+
+	for (SIZE_T i = 0; i < ShellcodeSize; i += 16) {
+		char* ipv6 = GenerateIPv6(
+			pShellcode[i], pShellcode[i + 1], pShellcode[i + 2], pShellcode[i + 3],
+			pShellcode[i + 4], pShellcode[i + 5], pShellcode[i + 6], pShellcode[i + 7],
+			pShellcode[i + 8], pShellcode[i + 9], pShellcode[i + 10], pShellcode[i + 11],
+			pShellcode[i + 12], pShellcode[i + 13], pShellcode[i + 14], pShellcode[i + 15]
+		);
+
+		if (i == ShellcodeSize - 16) {
+			printf("\t\"%s\"", ipv6); // Last element without comma
+		} else {
+			printf("\t\"%s\",\n", ipv6);
+		}
+	}
+
+	printf("\n};\n\n");
+	printf("#define NumberOfElements %zu\n\n", count);
+	return TRUE;
+}
+
+BOOL ObfuscateIPv4(unsigned char* pShellcode, SIZE_T ShellcodeSize) {
+	if (pShellcode == NULL || ShellcodeSize == NULL || ShellcodeSize % 4 != 0) {
+		return FALSE;
+	}
+	SIZE_T count = ShellcodeSize / 4;
+	printf("char* IPv4Array[%zu] = {\n\t", count);
+	for (SIZE_T i = 0; i < ShellcodeSize; i += 4) {
+		char* ipv4 = GenerateIPv4(
+			pShellcode[i], pShellcode[i + 1], pShellcode[i + 2], pShellcode[i + 3]
+		);
+
+		if (i == ShellcodeSize - 4) {
+			printf("\t\"%s\"", ipv4); // Last element without comma
+		} else {
+			printf("\t\"%s\",\n", ipv4);
 		}
 	}
 
