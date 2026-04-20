@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Encryption.c" />
+    <ClCompile Include="aes.c" />
     <ClCompile Include="Obfuscation.c" />
+    <ClCompile Include="rc4.c" />
     <ClCompile Include="ShellFuscate.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Encryption.h" />
     <ClInclude Include="helpers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
