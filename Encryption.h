@@ -26,3 +26,4 @@ BOOL SimpleEncrypt(
 	DWORD*          pdwCipherSize
 );
 
+BOOL Rc4Encrypt(unsigned char* pKey, DWORD keySize, unsigned char* pData, DWORD dataSize);
