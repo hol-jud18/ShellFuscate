@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aes.c" />
+    <ClCompile Include="IO.c" />
     <ClCompile Include="Obfuscation.c" />
     <ClCompile Include="rc4.c" />
     <ClCompile Include="ShellFuscate.c" />

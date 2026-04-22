@@ -27,6 +27,9 @@
     <ClCompile Include="rc4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IO.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helpers.h">
