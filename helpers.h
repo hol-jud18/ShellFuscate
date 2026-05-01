@@ -1,5 +1,9 @@
 #pragma once
 
+// Functions from ShellFuscate.c
+unsigned char* ReadShellcodeFile(const char* filePath, DWORD* pSize);
+unsigned char* PadShellcode(unsigned char* pShellcode, DWORD* pSize, SIZE_T alignment);
+
 // Functions from Obfuscation.c
 // Obfuscate shellcode into UUID characters
 BOOL ObfuscateUUID(unsigned char* pShellcode, SIZE_T ShellcodeSize);

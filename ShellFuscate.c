@@ -53,3 +53,24 @@ unsigned char* ReadShellcodeFile(const char* filePath, DWORD* pSize) {
     return pBuffer;
 }
 
+// Pads shellcode to the next multiple of alignment with null bytes.
+// realloc may move the buffer, so always use the returned pointer.
+// Returns NULL on failure (original buffer is still valid in that case).
+unsigned char* PadShellcode(unsigned char* pShellcode, DWORD* pSize, SIZE_T alignment) {
+    if (pShellcode == NULL || pSize == NULL || alignment == 0) return NULL;
+
+    DWORD remainder = *pSize % (DWORD)alignment;
+    if (remainder == 0) return pShellcode;
+
+    DWORD paddedSize = *pSize + ((DWORD)alignment - remainder);
+    unsigned char* pPadded = (unsigned char*)realloc(pShellcode, paddedSize);
+    if (pPadded == NULL) {
+        fprintf(stderr, "[-] Failed to reallocate buffer for padding\n");
+        return NULL;
+    }
+
+    memset(pPadded + *pSize, 0x00, paddedSize - *pSize);
+    *pSize = paddedSize;
+    return pPadded;
+}
+
